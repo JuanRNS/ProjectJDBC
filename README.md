@@ -1,1 +1,87 @@
-# ProjectJDBC 📚\n\nProjeto de estudo desenvolvido durante o curso de Java na Udemy, focado em aprendizado prático de **JDBC (Java Database Connectivity)** e acesso a bancos de dados relacionais.\n\n## 📖 Sobre o Projeto\n\nEste repositório contém um projeto educacional que demonstra a utilização de JDBC para conexão e manipulação de dados em banco de dados MySQL/PostgreSQL usando Java puro. O projeto foi desenvolvido seguindo boas práticas de programação e organização de código.\n\n## 🎯 Objetivo\n\nO principal objetivo deste projeto é consolidar conhecimentos sobre:\n\n- Conexão com banco de dados usando JDBC\n- Execução de operações CRUD (Create, Read, Update, Delete)\n- Tratamento de exceções de banco de dados\n- Padrão DAO (Data Access Object)\n- Separação de responsabilidades em camadas\n\n## 🛠️ Tecnologias Utilizadas\n\n- **Java** - Linguagem de programação principal (100%)\n- **JDBC** - API para conexão com banco de dados\n- **MySQL/PostgreSQL** - Sistema de gerenciamento de banco de dados\n- **IntelliJ IDEA** - IDE utilizada no desenvolvimento\n\n## 📂 Estrutura do Projeto\n\n````\nProjectJDBC/\n├── src/\n│   ├── app/          # Classes principais da aplicação\n│   ├── db/           # Classes de conexão e configuração do banco\n│   ├── entities/     # Classes de entidade (modelos)\n│   └── model/        # Classes DAO (Data Access Object)\n├── db.properties     # Configurações de conexão com o banco\n└── ProjectJDBC.iml   # Arquivo de configuração do IntelliJ\n````\n\n### Descrição das Pastas\n\n- **app/**: Contém as classes executáveis e a lógica de aplicação\n- **db/**: Gerencia a conexão com o banco de dados e exceções personalizadas\n- **entities/**: Define as entidades/modelos que representam as tabelas do banco\n- **model/**: Implementa o padrão DAO para acesso aos dados\n\n## 🚀 Como Iniciar\n\n### Pré-requisitos\n\nAntes de executar o projeto, certifique-se de ter instalado:\n\n- [Java JDK 8+](https://www.oracle.com/java/technologies/downloads/)\n- [MySQL](https://www.mysql.com/downloads/) ou [PostgreSQL](https://www.postgresql.org/download/)\n- IDE Java (IntelliJ IDEA, Eclipse, NetBeans, etc.)\n- Driver JDBC do banco escolhido\n\n### Passo a Passo\n\n1. **Clone o repositório**\n   ```bash\n   git clone https://github.com/JuanRNS/ProjectJDBC.git\n   cd ProjectJDBC\n   ```\n\n2. **Configure o banco de dados**\n   \n   Crie um banco de dados no MySQL/PostgreSQL:\n   ```sql\n   CREATE DATABASE nome_do_banco;\n   ```\n\n3. **Configure o arquivo db.properties**\n   \n   Edite o arquivo `db.properties` na raiz do projeto com suas credenciais:\n   ```properties\n   dburl=jdbc:mysql://localhost:3306/nome_do_banco\n   user=seu_usuario\n   password=sua_senha\n   ```\n\n4. **Adicione o Driver JDBC**\n   \n   - Baixe o driver JDBC correspondente ao seu banco de dados\n   - Adicione o arquivo `.jar` ao classpath do projeto\n   - No IntelliJ: `File > Project Structure > Libraries > + > Java`\n\n5. **Execute o projeto**\n   \n   - Abra o projeto na sua IDE\n   - Localize a classe principal no pacote `app/`\n   - Execute a aplicação\n\n## 💡 Funcionalidades Implementadas\n\n- ✅ Conexão com banco de dados\n- ✅ Operações CRUD básicas\n- ✅ Tratamento de exceções\n- ✅ Padrão DAO\n- ✅ Separação em camadas\n\n## 📚 Aprendizados\n\nDurante o desenvolvimento deste projeto, foram estudados:\n\n- Como estabelecer e gerenciar conexões JDBC\n- Uso de `PreparedStatement` para prevenir SQL Injection\n- Gerenciamento de transações\n- Tratamento adequado de recursos (try-with-resources)\n- Organização de código em camadas (Model-DAO-Application)\n- Boas práticas de programação em Java\n\n## 🤝 Contribuições\n\nEste é um projeto de estudo pessoal, mas sugestões e feedbacks são sempre bem-vindos!\n\n## 📄 Licença\n\nEste projeto foi desenvolvido para fins educacionais.\n\n## 👨‍💻 Autor\n\n**Juan RNS**\n- GitHub: [@JuanRNS](https://github.com/JuanRNS)\n\n---\n\n⭐ Se este projeto foi útil para seus estudos, considere dar uma estrela!
+# Projeto JDBC - Java & MySQL com Padrão DAO
+
+Este projeto é uma aplicação Java educacional que demonstra o uso de **JDBC (Java Database Connectivity)** com o padrão de projeto **DAO (Data Access Object)**. Ele foi desenvolvido como parte de um curso da Udemy para interagir com um banco de dados MySQL.
+
+## 📋 Sobre o Projeto
+
+O objetivo principal é separar a lógica de acesso a dados da lógica de negócios, permitindo operações de CRUD (Create, Read, Update, Delete) nas entidades `Seller` (Vendedor) e `Department` (Departamento) de forma organizada e manutenível.
+
+## 🚀 Tecnologias Utilizadas
+
+- **Java 17+**
+- **JDBC (Java Database Connectivity)**
+- **MySQL** (Banco de Dados)
+- **Padrão DAO** (Data Access Object)
+
+## 📂 Estrutura do Projeto
+
+A estrutura de pacotes do projeto é organizada da seguinte forma:
+
+- **src/app**: Contém a classe `Main.java` para testar a aplicação no console.
+- **src/db**: Contém a classe `DB.java` responsável pela conexão e desconexão com o banco de dados.
+- **src/entities**: Contém as classes de modelo (entidades) `Seller` e `Department`.
+- **src/model**: Contém as interfaces DAO (`SellerDao`, `DepartmentDao`) e a fábrica `DaoFactory`.
+- **src/model/dao/impl**: Contém as implementações JDBC das interfaces DAO (`SellerDaoJDBC`, `DepartmentDaoJDBC`).
+
+## ⚙️ Configuração do Banco de Dados
+
+Para rodar o projeto, você precisa ter o MySQL instalado e criar o banco de dados `coursejdbc`. Execute o script SQL abaixo no seu cliente MySQL (ex: MySQL Workbench):
+
+```sql
+CREATE DATABASE coursejdbc;
+
+USE coursejdbc;
+
+CREATE TABLE department (
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  Name varchar(60) DEFAULT NULL,
+  PRIMARY KEY (Id)
+);
+
+CREATE TABLE seller (
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  Name varchar(60) NOT NULL,
+  Email varchar(100) NOT NULL,
+  BirthDate datetime NOT NULL,
+  BaseSalary double NOT NULL,
+  DepartmentId int(11) NOT NULL,
+  PRIMARY KEY (Id),
+  FOREIGN KEY (DepartmentId) REFERENCES department (Id)
+);
+
+INSERT INTO department (Name) VALUES 
+  ('Computers'), 
+  ('Electronics'), 
+  ('Fashion'), 
+  ('Books');
+
+INSERT INTO seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES 
+  ('Bob Brown','bob@gmail.com','1998-04-21 00:00:00',1000,1),
+  ('Maria Green','maria@gmail.com','1979-12-31 00:00:00',3500,2),
+  ('Alex Grey','alex@gmail.com','1988-01-15 00:00:00',2200,1),
+  ('Martha Red','martha@gmail.com','1993-11-30 00:00:00',3000,4),
+  ('Donald Blue','donald@gmail.com','2000-01-09 00:00:00',4000,3),
+  ('Alex Pink','bob@gmail.com','1997-03-04 00:00:00',3000,2);
+```
+
+## 🔧 Configuração da Aplicação
+
+Certifique-se de que o arquivo `db.properties` na raiz do projeto esteja configurado corretamente com as suas credenciais do MySQL:
+
+```properties
+user=root
+password=SUA_SENHA_AQUI
+dburl=jdbc:mysql://localhost:3306/coursejdbc
+useSSL=false
+```
+
+> **Nota**: Substitua `SUA_SENHA_AQUI` pela senha do seu usuário root do MySQL.
+
+## ▶️ Como Executar
+
+1. Importe o projeto na sua IDE de preferência (IntelliJ IDEA, Eclipse, NetBeans).
+2. Verifique se o driver JDBC do MySQL (MySQL Connector/J) está adicionado às dependências do projeto.
+3. Configure o arquivo `db.properties` conforme explicado acima.
+4. Execute a classe `src/app/Main.java`.
+
+O programa irá realizar uma série de testes demonstrando inserção, busca, atualização e deleção de vendedores.
